@@ -1,11 +1,15 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import TaskForm from './components/TaskForm.vue';
+import type { Task } from './types';
 
 const message = ref("Tasks App");
+const tasks = ref<Task>([]);
 
 function addTask(newTask: string) {
-    console.log(newTask);
+    tasks.value.push(
+        {id: crypto.randomUUID(), title: newTask, done: false}
+    );
 }
 
 </script>
@@ -14,6 +18,9 @@ function addTask(newTask: string) {
     <main>
         <h1>{{ message }}</h1>
         <TaskForm @add-task="addTask" />
+        <article v-for="task in tasks" :key="task.id">
+            {{ task.title }}
+        </article>
     </main>
 </template>
 
