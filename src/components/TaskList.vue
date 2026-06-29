@@ -13,7 +13,7 @@ const emits = defineEmits<{
 </script>
 
 <template>
-    <div class="task-list">
+    <TransitionGroup name="list" tag="div" class="task-list">
         <article class="task" v-for="task in tasks" :key="task.id">
             <label>
                 <input
@@ -25,7 +25,7 @@ const emits = defineEmits<{
             </label>
         <button class="outline" @click="emits('removeTask', task.id)">remove</button>
         </article>
-    </div>
+    </TransitionGroup>
 </template>
 
 
@@ -43,4 +43,14 @@ const emits = defineEmits<{
 .done {
     text-decoration: line-through;
 }
+
+.list-enter-active, .list-leave-active {
+    transition: all 0.5s ease;
+}
+
+.list-enter-from, .list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
 </style>
